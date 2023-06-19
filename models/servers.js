@@ -1,35 +1,36 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const cors = require('cors');
 //const { db } = require('../database/db');
 
 class Server {
   constructor() {
     this.app = express();
-    this.port = 3000;
+    this.port = process.env.PORT || 3650;
+
+    this.paths = {
+      user: '/api/v1/user',
+      products: '/api/v1/products',
+    };
 
     //Path Routes
-    this.routes;
+    this.routes();
 
     //Connect to db
     // this.database();
 
     //Middlewares
-    //this.middlewares();
+    this.middlewares();
 
     //Routes
     this.routes();
   }
 
-  /*middlewares() {
-        this.app.use(cors());
-        this.app.use(express.json())
-    }*/
-
-  routes() {
-    this.app.get("/", (req, res) => {
-      res.send("Hello Wold");
-    });
+  middlewares() {
+    /* this.app.use(cors());*/
+    this.app.use(express.json()); //Me permite trabajar con formato json
   }
+
+  routes() {}
   /*
     database() {
         db.authenticate()
@@ -47,7 +48,7 @@ class Server {
   //Método para escuchar solicitudes por el puerto
   listen() {
     this.app.listen(this.port, () => {
-      console.log("Server Running On Port", this.port);
+      console.log('Server Running On Port', this.port + '😎😎‼');
     });
   }
 }
